@@ -31,8 +31,30 @@ public class PetResource {
     public Response get(@PathParam("id") Long id) {
         PetDTO pet = service.getById(id);
         if (pet == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            throw new NotFoundException("Pet with id " + id + " not found");
         }
+        return Response.ok(pet).build();
+    }
+
+    @PUT
+    @Path("/{id}/feed")
+    public Response feed(@PathParam("id") Long id) {
+        PetDTO pet = service.getById(id);
+        if (pet == null) {
+            throw new NotFoundException("Pet with id " + id + " not found");
+        }
+        pet.setHungerLevel(Math.max(0, pet.getHungerLevel() - 10));
+        return Response.ok(pet).build();
+    }
+
+    @PUT
+    @Path("/{id}/play")
+    public Response play(@PathParam("id") Long id) {
+        PetDTO pet = service.getById(id);
+        if (pet == null) {
+            throw new NotFoundException("Pet with id " + id + " not found");
+        }
+        pet.setHappinesLevel(Math.min(100, pet.getHappinesLevel() + 10));
         return Response.ok(pet).build();
     }
 
