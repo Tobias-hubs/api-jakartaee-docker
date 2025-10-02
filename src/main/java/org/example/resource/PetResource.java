@@ -22,8 +22,40 @@ public class PetResource {
     }
 
     @GET
-    public Collection<PetDTO> list() {
-        return service.getAll();
+    public Collection<PetDTO> list(
+            @QueryParam("species") String species,
+            @QueryParam("sortBy") @DefaultValue("id") String sortBy,
+            @QueryParam("order") @DefaultValue("asc") String order,
+            @QueryParam("offset") @DefaultValue("0") int offset,
+            @QueryParam("limit") @DefaultValue("10") int limit) {
+
+        // Get all pets
+        List<PetDTO> all = new ArrayList<>(service.getAll());
+
+        // Filtering
+        if (species != null && !species.isBlank()) {
+            all = all.stream()
+                    .filter(pet -> pet.getSpecies().equalsIgnoreCase(species)) //
+                    .toList();
+        }
+
+        // Sorting
+        Comparator<PetDTO> comparator = switch (sortBy.toLowerCase()) {
+            case "happinesLevel" -> Comparator.comparing(PetDTO::getHappinesLevel);
+            case "hungerLevel" -> Comparator.comparing(PetDTO::getHungerLevel);
+            case "name" -> Comparator.comparing(PetDTO::getName);
+            default -> Comparator.comparing(PetDTO::getName); // fallback
+        };
+        if ("desc".equalsIgnoreCase(order)) {
+            comparator = comparator.reversed();
+        }
+        all = all.stream().sorted(comparator).toList();
+
+        // Pagination
+        int from = Math.min(offset, all.size());
+        int to = Math.min(from + limit, all.size());
+
+        return all.subList(from, to);
     }
 
     @GET
