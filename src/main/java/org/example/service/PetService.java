@@ -13,6 +13,7 @@ public class PetService {
 
     public PetDTO addPet(PetDTO pet) {
         long id = idGen.incrementAndGet();
+        pet.setId(id);
         pets.put(id, pet);
         return pet;
     }

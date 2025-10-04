@@ -2,6 +2,8 @@ package org.example.dto;
 import jakarta.validation.constraints.*;
 
 public class PetDTO {
+    private Long id;
+
     @NotBlank
     private String name;
 
@@ -12,7 +14,11 @@ public class PetDTO {
     private int hungerLevel;
 
     @Min(0) @Max(100)
-    private int happinesLevel;
+    private int happinessLevel;
+
+    // Id getters/setters
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
 
     // Getters & setters
     public String getName() {return name;}
@@ -24,7 +30,7 @@ public class PetDTO {
     public int getHungerLevel() {return hungerLevel;}
     public void setHungerLevel(int hungerLevel) {this.hungerLevel = hungerLevel;}
 
-    public int getHappinesLevel() {return happinesLevel;}
-    public void setHappinesLevel(int happinesLevel) {this.happinesLevel = happinesLevel;}
+    public int getHappinessLevel() {return happinessLevel;}
+    public void setHappinessLevel(int happinessLevel) {this.happinessLevel = happinessLevel;}
 
 }

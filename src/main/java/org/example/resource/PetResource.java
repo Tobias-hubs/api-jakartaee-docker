@@ -6,6 +6,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
+
+import java.net.URI;
 import java.util.*;
 
 @Path("/pets")
@@ -16,9 +18,10 @@ public class PetResource {
     PetService service;
 
     @POST
-    public Response adopt(@Valid PetDTO pet) {
+    public Response adopt(@Valid PetDTO pet, @Context UriInfo uriInfo) {
         PetDTO saved = service.addPet(pet);
-        return Response.status(Response.Status.CREATED).entity(saved).build();
+        URI location = uriInfo.getAbsolutePathBuilder().path(String.valueOf(saved.getId())).build();
+        return Response.created(location).entity(saved).build();
     }
 
     @GET
@@ -41,7 +44,7 @@ public class PetResource {
 
         // Sorting
         Comparator<PetDTO> comparator = switch (sortBy.toLowerCase()) {
-            case "happinesLevel" -> Comparator.comparing(PetDTO::getHappinesLevel);
+            case "happinessLevel" -> Comparator.comparing(PetDTO::getHappinessLevel);
             case "hungerLevel" -> Comparator.comparing(PetDTO::getHungerLevel);
             case "name" -> Comparator.comparing(PetDTO::getName);
             default -> Comparator.comparing(PetDTO::getName); // fallback
@@ -86,7 +89,7 @@ public class PetResource {
         if (pet == null) {
             throw new NotFoundException("Pet with id " + id + " not found");
         }
-        pet.setHappinesLevel(Math.min(100, pet.getHappinesLevel() + 10));
+        pet.setHappinessLevel(Math.min(100, pet.getHappinessLevel() + 10));
         return Response.ok(pet).build();
     }
 
