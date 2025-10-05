@@ -72,6 +72,19 @@ public class PetResource {
     }
 
     @PUT
+    @Path("/{id}")
+    public Response update(@PathParam("id") Long id, PetDTO pet) {
+        PetDTO existing = service.getById(id);
+        if (existing == null) throw new NotFoundException("Pet with id " + id + " not found");
+        existing.setName(pet.getName());
+        existing.setSpecies(pet.getSpecies());
+        existing.setHungerLevel(pet.getHungerLevel());
+        existing.setHappinessLevel(pet.getHappinessLevel());
+        return Response.ok(existing).build();
+
+    }
+
+    @PUT
     @Path("/{id}/feed")
     public Response feed(@PathParam("id") Long id) {
         PetDTO pet = service.getById(id);
