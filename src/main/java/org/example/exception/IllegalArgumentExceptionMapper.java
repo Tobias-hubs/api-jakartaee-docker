@@ -11,8 +11,9 @@ import java.util.Map;
 public class IllegalArgumentExceptionMapper implements ExceptionMapper<IllegalArgumentException> {
     @Override
     public Response toResponse(IllegalArgumentException e) {
+        final String message = e.getMessage() != null ? e.getMessage() : "Bad request";
         return Response.status(Response.Status.BAD_REQUEST)
-                .entity(Map.of("error", e.getMessage()))
+                .entity(Map.of("error", message))
                 .type(MediaType.APPLICATION_JSON)
                 .build();
     }
