@@ -32,6 +32,11 @@ public class PetResource {
             @QueryParam("offset") @DefaultValue("0") int offset,
             @QueryParam("limit") @DefaultValue("10") int limit) {
 
+        // Validate parameters
+        if (offset < 0 || limit <= 0) {
+            throw new IllegalArgumentException("Invalid offset or limit");
+        }
+
         // Get all pets
         List<PetDTO> all = new ArrayList<>(service.getAll());
 
