@@ -49,10 +49,11 @@ public class PetResource {
 
         // Sorting
         Comparator<PetDTO> comparator = switch (sortBy.toLowerCase()) {
-            case "happinessLevel" -> Comparator.comparing(PetDTO::getHappinessLevel);
-            case "hungerLevel" -> Comparator.comparing(PetDTO::getHungerLevel);
+            case "happinesslevel" -> Comparator.comparing(PetDTO::getHappinessLevel);
+            case "hungerlevel" -> Comparator.comparing(PetDTO::getHungerLevel);
             case "name" -> Comparator.comparing(PetDTO::getName);
-            default -> Comparator.comparing(PetDTO::getName); // fallback
+            case "id" -> Comparator.comparing(PetDTO::getId);
+            default -> Comparator.comparing(PetDTO::getId); // fallback
         };
         if ("desc".equalsIgnoreCase(order)) {
             comparator = comparator.reversed();
