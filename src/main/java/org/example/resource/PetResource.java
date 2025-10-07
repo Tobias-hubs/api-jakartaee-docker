@@ -43,7 +43,7 @@ public class PetResource {
         // Filtering
         if (species != null && !species.isBlank()) {
             all = all.stream()
-                    .filter(pet -> pet.getSpecies().equalsIgnoreCase(species)) //
+                    .filter(pet -> pet.getSpecies() != null && pet.getSpecies().equalsIgnoreCase(species)) //
                     .toList();
         }
 
