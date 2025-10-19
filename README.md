@@ -34,3 +34,6 @@ curl -X PUT http://localhost:8080/api/pets/1/feed - (or play)
 - Wildfly
 - Docker 
 - Maven
+
+## Linked school issue 
+[#142](https://github.com/fungover/exercise2025/issues/142)
