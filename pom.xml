@@ -21,8 +21,8 @@
         <jakartaee-api.version>11.0.0</jakartaee-api.version>
         <wildfly.version>35.0.1.Final</wildfly.version>
         <compiler-plugin.version>3.14.1</compiler-plugin.version>
-        <war-plugin.version>3.4.0</war-plugin.version>
-        <wildfly-plugin.version>5.1.4.Final</wildfly-plugin.version>
+        <war-plugin.version>3.5.0</war-plugin.version>
+        <wildfly-plugin.version>5.1.5.Final</wildfly-plugin.version>
     </properties>
 
     <dependencies>
