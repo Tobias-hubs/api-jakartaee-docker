@@ -22,7 +22,7 @@
         <wildfly.version>35.0.1.Final</wildfly.version>
         <compiler-plugin.version>3.15.0</compiler-plugin.version>
         <war-plugin.version>3.5.1</war-plugin.version>
-        <wildfly-plugin.version>5.1.5.Final</wildfly-plugin.version>
+        <wildfly-plugin.version>6.0.0.Final</wildfly-plugin.version>
     </properties>
 
     <dependencies>
